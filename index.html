@@ -10,6 +10,42 @@
     <main class="game-shell">
       <canvas id="arena-canvas" aria-label="Animated WebGL card arena"></canvas>
 
+      <section class="splash-screen" id="splash-screen" aria-labelledby="splash-title">
+        <div class="splash-stage" aria-hidden="true">
+          <div class="hero-orbit">
+            <span class="orbit-card orbit-card-a">
+              <b>1</b>
+              <strong>IDT</strong>
+              <small>Source</small>
+            </span>
+            <span class="orbit-card orbit-card-b">
+              <b>2</b>
+              <strong>AP1</strong>
+              <small>Core</small>
+            </span>
+            <span class="orbit-card orbit-card-c">
+              <b>3</b>
+              <strong>ODT</strong>
+              <small>View</small>
+            </span>
+          </div>
+          <div class="guardian-core">
+            <span class="core-ring"></span>
+            <span class="core-mask"></span>
+            <span class="core-scanline"></span>
+          </div>
+        </div>
+
+        <div class="splash-copy">
+          <p class="splash-kicker">Color Pipeline Duel</p>
+          <h1 id="splash-title">Gamut Guardian</h1>
+          <p>Guard the gamut. Break the bad transform. Win the lanes.</p>
+          <button id="launch-button" class="launch-button" type="button">
+            <span>Launch Trial</span>
+          </button>
+        </div>
+      </section>
+
       <header class="hud top-hud">
         <div class="identity opponent">
           <span class="avatar-mark"></span>

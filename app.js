@@ -141,6 +141,8 @@ const els = {
   endTurnButton: document.querySelector("#end-turn-button"),
   resetButton: document.querySelector("#reset-button"),
   toast: document.querySelector("#toast"),
+  splash: document.querySelector("#splash-screen"),
+  launchButton: document.querySelector("#launch-button"),
 };
 
 function cloneCard(card) {
@@ -416,6 +418,11 @@ function showToast(message) {
   showToast.timer = window.setTimeout(() => els.toast.classList.remove("show"), 2200);
 }
 
+function launchTrial() {
+  els.splash.classList.add("hidden");
+  showToast("Trial launched. Correct the pipeline and take the lanes.");
+}
+
 function initArena() {
   const canvas = els.canvas;
   const gl = canvas.getContext("webgl", { alpha: true, antialias: true });
@@ -507,6 +514,7 @@ document.querySelectorAll(".drop-zone").forEach((zone) => {
 els.endTurnButton.addEventListener("click", endTurn);
 els.resetButton.addEventListener("click", newMatch);
 els.snapButton.addEventListener("click", snap);
+els.launchButton.addEventListener("click", launchTrial);
 
 initArena();
 newMatch();
