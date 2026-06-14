@@ -1,21 +1,36 @@
 # Gamut Guardian
 
-A fast lane-based digital card battler for VFX compositors learning the ACES color pipeline.
+Gamut Guardian is a gamified ACES learning and reference terminal for Nuke compositors.
 
-Play ACES tactic cards into three reveal lanes, manage energy, snap cube stakes, and win two lanes by building the stronger color pipeline.
+It combines flashcards, scenario challenges, field-guide reference, glossary lookup, answer search, XP, ranks, and achievements into a card-centric training experience.
 
-Open `index.html` directly in a browser, or run a static server from this folder:
+## Stack
+
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- Local TypeScript content data
+
+## Local Development
 
 ```powershell
-npm.cmd run serve
+npm.cmd install
+npm.cmd run dev
 ```
 
-Then visit `http://localhost:4173`.
-
-For Vercel preview deployments:
+## Production Build
 
 ```powershell
 npm.cmd run build
 ```
 
-Build output is written to `dist/`.
+## Product Direction
+
+The current source-of-truth docs live in `docs/`:
+
+- `docs/project_brief.md`
+- `docs/design.md`
+- `docs/codex_prompt.md`
+
+Vercel should use the Next.js framework preset and `npm run build`.

@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --background: #07080d;
+  --foreground: #eef7ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 4%, rgba(0, 200, 255, 0.16), transparent 26rem),
+    radial-gradient(circle at 88% 12%, rgba(174, 92, 255, 0.18), transparent 28rem),
+    radial-gradient(circle at 54% 100%, rgba(255, 184, 68, 0.1), transparent 26rem),
+    linear-gradient(135deg, #07080d, #10131d 48%, #07080d);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(50, 230, 255, 0.34);
+}
+
+.terminal-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.card-tilt:hover {
+  transform: translateY(-4px) rotateX(1deg) rotateY(-1deg);
+}
+
+.pixel {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rainbow-line {
+  background: linear-gradient(90deg, #40f6ff, #4b8cff, #a35cff, #ff4ccc, #ffc857, #54ff9f);
+}
+
+@keyframes card-pop {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  35%,
+  70% {
+    opacity: 0.42;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(69, 236, 255, 0.16), transparent);
+  animation: scan 4.4s ease-in-out infinite;
+}
