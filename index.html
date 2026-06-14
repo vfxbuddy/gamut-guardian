@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gamut Guardian</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <canvas id="arena-canvas" aria-label="Animated WebGL card arena"></canvas>
+
+      <header class="hud top-hud">
+        <div class="identity opponent">
+          <span class="avatar-mark"></span>
+          <div>
+            <strong>The Chromancer</strong>
+            <small>Pipeline corrupter</small>
+          </div>
+        </div>
+
+        <div class="stakes-panel" aria-live="polite">
+          <span>Cube Stakes</span>
+          <strong id="cube-count">1</strong>
+          <button id="snap-button" type="button">Snap</button>
+        </div>
+
+        <div class="identity player">
+          <div>
+            <strong>Gamut Guardian</strong>
+            <small>ACES tactician</small>
+          </div>
+          <span class="avatar-mark guardian"></span>
+        </div>
+      </header>
+
+      <section class="match-status" aria-live="polite">
+        <p id="turn-label">Turn 1 / 6</p>
+        <h1 id="mission-title">Win two lanes by fixing the color pipeline.</h1>
+        <p id="mission-copy">Play ACES tactic cards into reveal lanes. Higher power wins the lane when the match ends.</p>
+      </section>
+
+      <section class="board" aria-label="Three contested color pipeline lanes">
+        <article class="lane" data-lane="0">
+          <div class="lane-header">
+            <span class="lane-status">Revealed</span>
+            <h2 id="lane-name-0">Source Gate</h2>
+            <p id="lane-effect-0">First card played here gets +2 power if it is an IDT.</p>
+          </div>
+          <div class="lane-score">
+            <strong id="opponent-score-0">0</strong>
+            <span>Power</span>
+            <strong id="player-score-0">0</strong>
+          </div>
+          <div class="lane-slots">
+            <div class="side opponent-side" id="opponent-lane-0"></div>
+            <button class="drop-zone" type="button" data-lane="0" aria-label="Play selected card to Source Gate">
+              <span>Play Here</span>
+            </button>
+            <div class="side player-side" id="player-lane-0"></div>
+          </div>
+        </article>
+
+        <article class="lane locked" data-lane="1">
+          <div class="lane-header">
+            <span class="lane-status">Reveals Turn 2</span>
+            <h2 id="lane-name-1">Hidden Node</h2>
+            <p id="lane-effect-1">Unknown pipeline effect.</p>
+          </div>
+          <div class="lane-score">
+            <strong id="opponent-score-1">0</strong>
+            <span>Power</span>
+            <strong id="player-score-1">0</strong>
+          </div>
+          <div class="lane-slots">
+            <div class="side opponent-side" id="opponent-lane-1"></div>
+            <button class="drop-zone" type="button" data-lane="1" aria-label="Play selected card to middle lane">
+              <span>Play Here</span>
+            </button>
+            <div class="side player-side" id="player-lane-1"></div>
+          </div>
+        </article>
+
+        <article class="lane locked" data-lane="2">
+          <div class="lane-header">
+            <span class="lane-status">Reveals Turn 3</span>
+            <h2 id="lane-name-2">Hidden Node</h2>
+            <p id="lane-effect-2">Unknown pipeline effect.</p>
+          </div>
+          <div class="lane-score">
+            <strong id="opponent-score-2">0</strong>
+            <span>Power</span>
+            <strong id="player-score-2">0</strong>
+          </div>
+          <div class="lane-slots">
+            <div class="side opponent-side" id="opponent-lane-2"></div>
+            <button class="drop-zone" type="button" data-lane="2" aria-label="Play selected card to right lane">
+              <span>Play Here</span>
+            </button>
+            <div class="side player-side" id="player-lane-2"></div>
+          </div>
+        </article>
+      </section>
+
+      <footer class="hud bottom-hud">
+        <div class="energy-bank" aria-label="Available energy">
+          <span>Energy</span>
+          <div id="energy-pips"></div>
+        </div>
+
+        <div class="hand" id="hand" aria-label="Player hand"></div>
+
+        <div class="turn-actions">
+          <div class="selected-readout" id="selected-readout">Select a card.</div>
+          <button id="end-turn-button" type="button">End Turn</button>
+          <button id="reset-button" type="button">New Match</button>
+        </div>
+      </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

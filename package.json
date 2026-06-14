@@ -1,0 +1,9 @@
+{
+  "name": "gamut-guardian",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A tactical digital card game for learning the ACES color pipeline.",
+  "scripts": {
+    "serve": "node server.js"
+  }
+}
