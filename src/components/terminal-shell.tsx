@@ -26,15 +26,15 @@ export function TerminalShell({ children }: TerminalShellProps) {
   return (
     <div className="terminal-grid min-h-screen overflow-hidden">
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
-        <header className="sticky top-0 z-30 -mx-4 border-b border-white/10 bg-[#07080d]/88 px-4 pb-3 pt-2 backdrop-blur-xl sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <header className="sticky top-0 z-30 -mx-4 border-b border-amber-200/12 bg-[#080506]/90 px-4 pb-3 pt-2 backdrop-blur-xl sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             <Link href="/" className="group flex items-center gap-3" aria-label="Gamut Guardian dashboard">
-              <span className="grid size-11 place-items-center rounded-2xl border border-cyan-300/40 bg-cyan-300/10 shadow-[0_0_28px_rgba(50,230,255,0.18)]">
-                <span className="size-5 rounded-md bg-gradient-to-br from-cyan-200 via-blue-400 to-fuchsia-400" />
+              <span className="grid size-11 place-items-center rounded-xl border border-amber-300/45 bg-amber-300/10 shadow-[0_0_28px_rgba(255,90,47,0.18)]">
+                <span className="size-6 rounded-sm bg-gradient-to-br from-amber-200 via-red-500 to-emerald-300 [clip-path:polygon(50%_0,100%_50%,50%_100%,0_50%)]" />
               </span>
               <span>
                 <span className="block text-lg font-black uppercase leading-none">Gamut Guardian</span>
-                <span className="pixel text-[0.62rem] text-cyan-200/75">ACES Training Terminal</span>
+                <span className="pixel text-[0.62rem] text-amber-200/78">ACES Training Terminal</span>
               </span>
             </Link>
 
@@ -54,11 +54,11 @@ export function TerminalShell({ children }: TerminalShellProps) {
                   className={cn(
                     "shrink-0 rounded-2xl border px-3 py-2 text-left transition hover:-translate-y-0.5",
                     active
-                      ? "border-cyan-200/70 bg-cyan-300/15 shadow-[0_0_22px_rgba(50,230,255,0.18)]"
-                      : "border-white/10 bg-white/[0.045] hover:border-white/25",
+                      ? "border-amber-200/70 bg-amber-300/15 shadow-[0_0_22px_rgba(255,90,47,0.2)]"
+                      : "border-white/10 bg-white/[0.045] hover:border-amber-100/25",
                   )}
                 >
-                  <span className="pixel block text-[0.58rem] text-cyan-100/70">{item.code}</span>
+                  <span className="pixel block text-[0.58rem] text-amber-100/72">{item.code}</span>
                   <span className="block whitespace-nowrap text-sm font-bold">{item.label}</span>
                 </Link>
               );

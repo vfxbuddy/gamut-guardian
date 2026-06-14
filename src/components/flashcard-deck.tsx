@@ -42,7 +42,7 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
               className={cn(
                 "pixel-frame card-tilt min-h-48 bg-gradient-to-br p-4 text-left transition",
                 rarityClass(pack.rarity),
-                active && "shadow-[0_0_34px_rgba(50,230,255,0.22)]",
+                active && "shadow-[0_0_34px_rgba(255,90,47,0.24)]",
               )}
             >
               <div className="flex items-start justify-between gap-3">
@@ -56,7 +56,7 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
               </div>
               <h2 className="text-2xl font-black leading-tight">{pack.title}</h2>
               <p className="mt-2 text-sm leading-6 text-white/62">{pack.description}</p>
-              <p className="pixel mt-4 text-[0.62rem] text-amber-100/70">{pack.suit} suit</p>
+              <p className="pixel mt-4 text-[0.62rem] text-amber-100/78">{pack.suit} suit</p>
             </button>
           );
         })}
@@ -74,13 +74,13 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
         >
           <div className="card-sheen flex h-full flex-col justify-between rounded-[1.05rem] border border-white/12 bg-black/32 p-4">
             <div className="flex items-center justify-between gap-4">
-              <span className="pixel rounded-lg border border-cyan-100/20 bg-cyan-100/10 px-3 py-2 text-xs text-cyan-100/80">{activeCard.rarity}</span>
+              <span className="pixel rounded-lg border border-amber-100/25 bg-amber-100/10 px-3 py-2 text-xs text-amber-100/85">{activeCard.rarity}</span>
               <span className="rounded-lg border border-white/10 bg-white/10 px-3 py-2 text-xs font-black text-white/72">
                 {activeCard.difficulty}
               </span>
             </div>
 
-            <div className="my-5 grid min-h-36 place-items-center rounded-xl border border-white/10 bg-black/24">
+            <div className="my-5 mythic-card-portrait grid place-items-center">
               <div className="pixel-card-art" aria-hidden="true">
                 <span />
                 <span />
@@ -95,7 +95,7 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
             </div>
 
             <div className="py-3">
-              <p className="pixel mb-4 text-xs text-amber-100/70">{flipped ? "Answer" : "Prompt"}</p>
+              <p className="pixel mb-4 text-xs text-amber-100/78">{flipped ? "Answer" : "Prompt"}</p>
               <h2 className={cn("font-black leading-tight", flipped ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl")}>
                 {flipped ? activeCard.back : activeCard.front}
               </h2>
@@ -103,7 +103,7 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
 
             <div className="flex flex-wrap gap-2">
               {activeCard.tags.map((tag) => (
-                <span key={tag} className="rounded-lg border border-cyan-100/20 bg-cyan-100/10 px-3 py-1 text-xs font-bold text-cyan-50/80">
+                <span key={tag} className="rounded-lg border border-amber-100/20 bg-amber-100/10 px-3 py-1 text-xs font-bold text-amber-50/82">
                   {tag}
                 </span>
               ))}
@@ -113,12 +113,12 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
 
         <aside className="grid gap-3 self-start">
           <div className="pixel-frame bg-white/[0.045] p-4">
-            <p className="pixel text-xs text-cyan-100/70">Active Pack</p>
+            <p className="pixel text-xs text-amber-100/75">Active Pack</p>
             <p className="mt-1 text-2xl font-black">{activePack?.title ?? "All Cards"}</p>
             <p className="mt-3 text-sm leading-6 text-white/58">{activePack?.description}</p>
           </div>
           <div className="pixel-frame bg-white/[0.045] p-4">
-            <p className="pixel text-xs text-cyan-100/70">Card</p>
+            <p className="pixel text-xs text-amber-100/75">Card</p>
             <p className="mt-1 text-2xl font-black">
               {activeIndex + 1}/{visibleCards.length}
             </p>
@@ -127,7 +127,7 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
             <button className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 font-black" type="button" onClick={() => move(-1)}>
               Prev
             </button>
-            <button className="rounded-xl border border-cyan-200/30 bg-cyan-300/15 px-4 py-3 font-black" type="button" onClick={() => move(1)}>
+            <button className="rounded-xl border border-amber-200/35 bg-amber-300/15 px-4 py-3 font-black" type="button" onClick={() => move(1)}>
               Next
             </button>
           </div>

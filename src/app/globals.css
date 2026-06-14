@@ -7,8 +7,14 @@
 
 :root {
   color-scheme: dark;
-  --background: #07080d;
-  --foreground: #eef7ff;
+  --background: #080506;
+  --foreground: #fff4df;
+  --ember: #ff5a2f;
+  --gold: #ffc857;
+  --laurel: #54ff9f;
+  --shade: #13090d;
+  --violet: #a35cff;
+  --cyan: #40f6ff;
 }
 
 * {
@@ -24,11 +30,13 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 4px),
-    linear-gradient(135deg, #07080d, #10131d 46%, #05060a);
-  background-size: 22px 22px, 22px 22px, auto, auto;
+    linear-gradient(rgba(255, 200, 87, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 90, 47, 0.032) 1px, transparent 1px),
+    repeating-linear-gradient(0deg, rgba(255, 244, 223, 0.028) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 12% 0%, rgba(255, 90, 47, 0.22), transparent 22rem),
+    radial-gradient(circle at 100% 18%, rgba(84, 255, 159, 0.12), transparent 24rem),
+    linear-gradient(135deg, #080506, #170b10 48%, #050407);
+  background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
   color: var(--foreground);
   font-family: var(--font-sans);
 }
@@ -39,13 +47,13 @@ input {
 }
 
 ::selection {
-  background: rgba(50, 230, 255, 0.34);
+  background: rgba(255, 90, 47, 0.42);
 }
 
 .terminal-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(255, 200, 87, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(84, 255, 159, 0.032) 1px, transparent 1px);
   background-size: 32px 32px;
   image-rendering: pixelated;
 }
@@ -56,7 +64,7 @@ input {
 }
 
 .card-tilt:hover {
-  transform: translateY(-4px) rotateX(1deg) rotateY(-1deg);
+  transform: translateY(-5px) rotateX(1.3deg) rotateY(-1.6deg);
 }
 
 .pixel {
@@ -66,7 +74,7 @@ input {
 }
 
 .rainbow-line {
-  background: linear-gradient(90deg, #40f6ff, #4b8cff, #a35cff, #ff4ccc, #ffc857, #54ff9f);
+  background: linear-gradient(90deg, var(--ember), var(--gold), var(--laurel), var(--cyan), var(--violet));
 }
 
 @keyframes card-pop {
@@ -100,7 +108,7 @@ input {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(69, 236, 255, 0.16), transparent);
+  background: linear-gradient(180deg, transparent, rgba(255, 200, 87, 0.14), transparent);
   animation: scan 4.4s ease-in-out infinite;
 }
 
@@ -111,9 +119,10 @@ input {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.95rem;
   box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.32),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.045),
-    0 18px 44px rgba(0, 0, 0, 0.38);
+    0 0 0 2px rgba(0, 0, 0, 0.55),
+    0 0 0 4px rgba(255, 200, 87, 0.045),
+    inset 0 0 0 1px rgba(255, 244, 223, 0.055),
+    0 22px 52px rgba(0, 0, 0, 0.5);
 }
 
 .pixel-panel::before,
@@ -123,20 +132,21 @@ input {
   position: absolute;
   inset: 0.38rem;
   pointer-events: none;
-  border: 1px dashed rgba(90, 240, 255, 0.18);
+  border: 1px dashed rgba(255, 200, 87, 0.22);
   border-radius: 0.7rem;
 }
 
 .pixel-panel {
   background:
-    linear-gradient(90deg, rgba(64, 246, 255, 0.08) 0 2px, transparent 2px 12px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 6px),
-    rgba(255, 255, 255, 0.045);
+    linear-gradient(90deg, rgba(255, 90, 47, 0.1) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(255, 200, 87, 0.07) 0 1px, transparent 1px 6px),
+    linear-gradient(135deg, rgba(255, 90, 47, 0.09), rgba(84, 255, 159, 0.035)),
+    rgba(255, 244, 223, 0.04);
 }
 
 .collectible-card {
   border-radius: 1.15rem;
-  clip-path: polygon(0 1rem, 1rem 0, calc(100% - 1rem) 0, 100% 1rem, 100% calc(100% - 1rem), calc(100% - 1rem) 100%, 1rem 100%, 0 calc(100% - 1rem));
+  clip-path: polygon(0 1.15rem, 1.15rem 0, calc(100% - 1.15rem) 0, 100% 1.15rem, 100% calc(100% - 1.15rem), calc(100% - 1.15rem) 100%, 1.15rem 100%, 0 calc(100% - 1.15rem));
 }
 
 .card-sheen {
@@ -149,7 +159,7 @@ input {
   position: absolute;
   inset: -35%;
   pointer-events: none;
-  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.16), transparent 58%);
+  background: linear-gradient(115deg, transparent 34%, rgba(255, 200, 87, 0.18), rgba(84, 255, 159, 0.12), transparent 60%);
   transform: translateX(-45%) rotate(8deg);
   transition: transform 240ms ease;
 }
@@ -179,7 +189,7 @@ input {
 .pixel-sprite-onboard-input span:nth-child(5),
 .pixel-sprite-onboard-input span:nth-child(6),
 .pixel-sprite-onboard-input span:nth-child(8) {
-  background: #40f6ff;
+  background: var(--laurel);
 }
 
 .pixel-sprite-onboard-working span:nth-child(1),
@@ -187,7 +197,7 @@ input {
 .pixel-sprite-onboard-working span:nth-child(5),
 .pixel-sprite-onboard-working span:nth-child(7),
 .pixel-sprite-onboard-working span:nth-child(9) {
-  background: #a35cff;
+  background: var(--ember);
 }
 
 .pixel-sprite-onboard-display span:nth-child(1),
@@ -195,7 +205,7 @@ input {
 .pixel-sprite-onboard-display span:nth-child(3),
 .pixel-sprite-onboard-display span:nth-child(5),
 .pixel-sprite-onboard-display span:nth-child(8) {
-  background: #ffc857;
+  background: var(--gold);
 }
 
 .pixel-card-art span:nth-child(1),
@@ -213,6 +223,35 @@ input {
   background: linear-gradient(135deg, #ffc857, #ff4ccc);
 }
 
+.mythic-card-portrait {
+  position: relative;
+  min-height: 10rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 200, 87, 0.18);
+  border-radius: 0.85rem;
+  background:
+    linear-gradient(135deg, rgba(255, 90, 47, 0.14), rgba(84, 255, 159, 0.08)),
+    #0d070a;
+}
+
+.mythic-card-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 1rem 20% 1.15rem;
+  clip-path: polygon(50% 0, 64% 28%, 95% 30%, 70% 50%, 82% 86%, 50% 64%, 18% 86%, 30% 50%, 5% 30%, 36% 28%);
+  background: linear-gradient(135deg, var(--gold), var(--ember) 48%, var(--laurel));
+  filter: drop-shadow(0 0 18px rgba(255, 90, 47, 0.32));
+}
+
+.mythic-card-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 244, 223, 0.07) 0 2px, transparent 2px 10px),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), transparent 45%, rgba(255, 200, 87, 0.08));
+}
+
 .pixel-pack-art {
   position: relative;
 }
@@ -225,9 +264,9 @@ input {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 0.65rem;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 8px),
-    linear-gradient(135deg, rgba(64, 246, 255, 0.24), rgba(255, 76, 204, 0.18));
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
+    linear-gradient(90deg, rgba(255, 244, 223, 0.12) 0 2px, transparent 2px 8px),
+    linear-gradient(135deg, rgba(255, 90, 47, 0.3), rgba(84, 255, 159, 0.16), rgba(163, 92, 255, 0.2));
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.42), 0 0 18px rgba(255, 90, 47, 0.12);
 }
 
 .pixel-pack-art span:nth-child(1) {
