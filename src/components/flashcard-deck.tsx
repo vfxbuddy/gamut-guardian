@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import type { Flashcard, FlashcardPack } from "@/lib/data";
+import { useMemo, useState } from "react";
+import type { Flashcard, FlashcardPack, Rarity } from "@/lib/data";
 import { cn, rarityClass } from "@/lib/utils";
 
 type FlashcardDeckProps = {
@@ -9,17 +9,39 @@ type FlashcardDeckProps = {
   packs: FlashcardPack[];
 };
 
+const rarityPower: Record<Rarity, number> = {
+  Common: 1,
+  Uncommon: 2,
+  Rare: 3,
+  Epic: 4,
+  Legendary: 5,
+};
+
+function suitClass(suit: FlashcardPack["suit"] | undefined): string {
+  return `suit-${(suit ?? "Primaries").toLowerCase()}`;
+}
+
 export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
   const [activePackId, setActivePackId] = useState(packs[0]?.id ?? "all");
   const [activeIndex, setActiveIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const activePack = packs.find((pack) => pack.id === activePackId);
-  const visibleCards = activePack ? activePack.cardIds.map((id) => cards.find((card) => card.id === id)).filter((card): card is Flashcard => Boolean(card)) : cards;
+  const visibleCards = useMemo(
+    () => (activePack ? activePack.cardIds.map((id) => cards.find((card) => card.id === id)).filter((card): card is Flashcard => Boolean(card)) : cards),
+    [activePack, cards],
+  );
   const activeCard = visibleCards[activeIndex] ?? cards[0];
+  const activeSuitClass = suitClass(activePack?.suit);
+  const fanCards = visibleCards.slice(0, 5);
 
   function choosePack(packId: string) {
     setActivePackId(packId);
     setActiveIndex(0);
+    setFlipped(false);
+  }
+
+  function chooseCard(index: number) {
+    setActiveIndex(index);
     setFlipped(false);
   }
 
@@ -29,8 +51,8 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
   }
 
   return (
-    <section className="grid gap-5">
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+    <section className="card-game-table">
+      <div className="booster-rail" aria-label="Flashcard packs">
         {packs.map((pack) => {
           const active = pack.id === activePackId;
 
@@ -39,95 +61,94 @@ export function FlashcardDeck({ cards, packs }: FlashcardDeckProps) {
               key={pack.id}
               type="button"
               onClick={() => choosePack(pack.id)}
-              className={cn(
-                "pixel-frame card-tilt min-h-48 bg-gradient-to-br p-4 text-left transition",
-                rarityClass(pack.rarity),
-                active && "shadow-[0_0_34px_rgba(255,90,47,0.24)]",
-              )}
+              className={cn("booster-pack", suitClass(pack.suit), rarityClass(pack.rarity), active && "booster-pack-active")}
             >
-              <div className="flex items-start justify-between gap-3">
-                <span className="pixel text-[0.62rem] text-cyan-100/70">{pack.subtitle}</span>
-                <span className="rounded-lg border border-white/12 bg-black/35 px-2 py-1 text-xs font-black text-white/65">{pack.cardIds.length}</span>
-              </div>
-              <div className="my-5 h-16 pixel-pack-art" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </div>
-              <h2 className="text-2xl font-black leading-tight">{pack.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-white/62">{pack.description}</p>
-              <p className="pixel mt-4 text-[0.62rem] text-amber-100/78">{pack.suit} suit</p>
+              <span className="booster-seal">{pack.cardIds.length}</span>
+              <span className="pixel booster-kicker">{pack.subtitle}</span>
+              <span className="booster-title">{pack.title}</span>
+              <span className="booster-desc">{pack.description}</span>
+              <span className="pixel booster-suit">{pack.suit} suit</span>
             </button>
           );
         })}
       </div>
 
-      <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem]">
+      <section className="playmat">
+        <div className="table-glow" aria-hidden="true" />
+
+        <div className="fan-stack" aria-hidden="true">
+          {fanCards.map((card, index) => (
+            <div key={card.id} className={cn("fan-card", `fan-card-${index}`, rarityClass(card.rarity))}>
+              <span className="fan-gem" />
+              <span className="fan-line" />
+              <span className="fan-line fan-line-short" />
+            </div>
+          ))}
+        </div>
+
         <button
           type="button"
           onClick={() => setFlipped((value) => !value)}
-          className={cn(
-            "collectible-card group min-h-[31rem] bg-gradient-to-br p-3 text-left shadow-2xl shadow-black/45 transition hover:-translate-y-1",
-            rarityClass(activeCard.rarity),
-          )}
+          className={cn("tcg-card", activeSuitClass, rarityClass(activeCard.rarity), flipped && "tcg-card-flipped")}
           aria-pressed={flipped}
         >
-          <div className="card-sheen flex h-full flex-col justify-between rounded-[1.05rem] border border-white/12 bg-black/32 p-4">
-            <div className="flex items-center justify-between gap-4">
-              <span className="pixel rounded-lg border border-amber-100/25 bg-amber-100/10 px-3 py-2 text-xs text-amber-100/85">{activeCard.rarity}</span>
-              <span className="rounded-lg border border-white/10 bg-white/10 px-3 py-2 text-xs font-black text-white/72">
-                {activeCard.difficulty}
-              </span>
+          <span className="tcg-cost">{rarityPower[activeCard.rarity]}</span>
+          <div className="tcg-frame">
+            <div className="tcg-top">
+              <span className="pixel">{activeCard.rarity}</span>
+              <span>{activeCard.difficulty}</span>
             </div>
 
-            <div className="my-5 mythic-card-portrait grid place-items-center">
-              <div className="pixel-card-art" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
+            <div className="tcg-portrait" aria-hidden="true">
+              <div className="pixel-guardian">
+                {Array.from({ length: 25 }).map((_, index) => (
+                  <span key={index} />
+                ))}
               </div>
             </div>
 
-            <div className="py-3">
-              <p className="pixel mb-4 text-xs text-amber-100/78">{flipped ? "Answer" : "Prompt"}</p>
-              <h2 className={cn("font-black leading-tight", flipped ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl")}>
-                {flipped ? activeCard.back : activeCard.front}
-              </h2>
+            <div className="tcg-title-block">
+              <p className="pixel">{activePack?.suit ?? "Knowledge"} card</p>
+              <h2>{activeCard.front}</h2>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="tcg-rules">
+              <p className="pixel">{flipped ? "Decoded Answer" : "Challenge Prompt"}</p>
+              <strong>{flipped ? activeCard.back : "Tap the card to reveal the production answer."}</strong>
+            </div>
+
+            <div className="tcg-tags">
               {activeCard.tags.map((tag) => (
-                <span key={tag} className="rounded-lg border border-amber-100/20 bg-amber-100/10 px-3 py-1 text-xs font-bold text-amber-50/82">
-                  {tag}
-                </span>
+                <span key={tag}>{tag}</span>
               ))}
             </div>
           </div>
         </button>
 
-        <aside className="grid gap-3 self-start">
-          <div className="pixel-frame bg-white/[0.045] p-4">
-            <p className="pixel text-xs text-amber-100/75">Active Pack</p>
-            <p className="mt-1 text-2xl font-black">{activePack?.title ?? "All Cards"}</p>
-            <p className="mt-3 text-sm leading-6 text-white/58">{activePack?.description}</p>
+        <aside className="command-panel">
+          <div>
+            <p className="pixel text-[0.62rem] text-amber-100/75">Active Booster</p>
+            <h3>{activePack?.title ?? "All Cards"}</h3>
+            <p>{activePack?.description}</p>
           </div>
-          <div className="pixel-frame bg-white/[0.045] p-4">
-            <p className="pixel text-xs text-amber-100/75">Card</p>
-            <p className="mt-1 text-2xl font-black">
-              {activeIndex + 1}/{visibleCards.length}
-            </p>
+
+          <div className="card-slots">
+            {visibleCards.map((card, index) => (
+              <button key={card.id} type="button" onClick={() => chooseCard(index)} className={cn("card-slot", index === activeIndex && "card-slot-active")}>
+                <span className="slot-rarity">{rarityPower[card.rarity]}</span>
+                <span>{card.front}</span>
+              </button>
+            ))}
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <button className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 font-black" type="button" onClick={() => move(-1)}>
+
+          <div className="table-controls">
+            <button type="button" onClick={() => move(-1)}>
               Prev
             </button>
-            <button className="rounded-xl border border-amber-200/35 bg-amber-300/15 px-4 py-3 font-black" type="button" onClick={() => move(1)}>
+            <span className="pixel">
+              {activeIndex + 1}/{visibleCards.length}
+            </span>
+            <button type="button" onClick={() => move(1)}>
               Next
             </button>
           </div>
