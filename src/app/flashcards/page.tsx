@@ -1,5 +1,5 @@
 import { FlashcardDeck } from "@/components/flashcard-deck";
-import { flashcards } from "@/lib/data";
+import { flashcardPacks, flashcards } from "@/lib/data";
 
 export default function FlashcardsPage() {
   return (
@@ -8,7 +8,7 @@ export default function FlashcardsPage() {
         <p className="pixel text-xs text-cyan-100/70">Learn / Knowledge Cards</p>
         <h1 className="mt-2 text-4xl font-black sm:text-6xl">Flashcards</h1>
       </header>
-      <FlashcardDeck cards={flashcards} />
+      <FlashcardDeck cards={flashcards} packs={flashcardPacks} />
     </div>
   );
 }

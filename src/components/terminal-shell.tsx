@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Dashboard", code: "HOME" },
+  { href: "/onboarding", label: "ACES 101", code: "BOOT" },
   { href: "/flashcards", label: "Flashcards", code: "LEARN" },
   { href: "/challenges", label: "Challenges", code: "DUEL" },
   { href: "/tutorials", label: "Tutorials", code: "VIDS" },
@@ -32,7 +33,7 @@ export function TerminalShell({ children }: TerminalShellProps) {
                 <span className="size-5 rounded-md bg-gradient-to-br from-cyan-200 via-blue-400 to-fuchsia-400" />
               </span>
               <span>
-                <span className="block text-lg font-black uppercase leading-none tracking-wide">Gamut Guardian</span>
+                <span className="block text-lg font-black uppercase leading-none">Gamut Guardian</span>
                 <span className="pixel text-[0.62rem] text-cyan-200/75">ACES Training Terminal</span>
               </span>
             </Link>

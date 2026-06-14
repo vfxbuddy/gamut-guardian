@@ -13,7 +13,7 @@ export function CardFrame({ children, className, rarity = "Common", label }: Car
   return (
     <article
       className={cn(
-        "card-tilt scanline relative overflow-hidden rounded-[1.35rem] border bg-gradient-to-br p-4 shadow-2xl shadow-black/30",
+        "pixel-frame card-tilt scanline relative overflow-hidden rounded-[0.95rem] border bg-gradient-to-br p-4 shadow-2xl shadow-black/30",
         rarityClass(rarity),
         className,
       )}

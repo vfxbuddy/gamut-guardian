@@ -28,6 +28,27 @@ export type Flashcard = {
   sourceIds: string[];
 };
 
+export type FlashcardPack = {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  rarity: Rarity;
+  suit: Topic["suit"];
+  cardIds: string[];
+};
+
+export type OnboardingStep = {
+  id: string;
+  title: string;
+  nukeNode: string;
+  purpose: string;
+  compositorRead: string;
+  mistake: string;
+  rarity: Rarity;
+  tags: string[];
+};
+
 export type Scenario = {
   id: string;
   title: string;
@@ -177,6 +198,39 @@ export const topics: Topic[] = [
   },
 ];
 
+export const onboardingSteps: OnboardingStep[] = [
+  {
+    id: "onboard-input",
+    title: "Input: identify the source",
+    nukeNode: "Read node",
+    purpose: "ACES starts by asking what the pixels are before Nuke does math with them.",
+    compositorRead: "For camera plates, choose the matching IDT or input transform. For CG EXRs, confirm whether the render is ACEScg, ACES2065-1, Linear sRGB, or data.",
+    mistake: "Guessing Linear sRGB for a log plate makes the shot look wrong before the comp even begins.",
+    rarity: "Rare",
+    tags: ["IDT", "Read", "Source"],
+  },
+  {
+    id: "onboard-working",
+    title: "Working space: do the comp math",
+    nukeNode: "Project Settings / OCIO",
+    purpose: "ACES keeps lighting operations in a scene-linear space so merges, glows, CG, and plates behave like light.",
+    compositorRead: "In Nuke ACES configs, this usually means working in ACEScg/scene_linear for production comp operations.",
+    mistake: "Comping in a display space or grading space can make values clamp, drift, or behave strangely under merges.",
+    rarity: "Epic",
+    tags: ["ACEScg", "Scene-linear", "OCIO"],
+  },
+  {
+    id: "onboard-display",
+    title: "Display: view it for a monitor",
+    nukeNode: "Viewer Process / Write transform",
+    purpose: "The viewer transform turns scene-linear ACES values into an image your display can show.",
+    compositorRead: "Use the viewer/output transform for review and delivery, but do not bake it into the middle of comp unless the task specifically requires it.",
+    mistake: "A baked viewer LUT plus another viewer transform creates the classic crunchy double-transform look.",
+    rarity: "Legendary",
+    tags: ["Viewer", "ODT", "Review"],
+  },
+];
+
 export const flashcards: Flashcard[] = [
   {
     id: "fc-acescg-use",
@@ -317,6 +371,45 @@ export const flashcards: Flashcard[] = [
     tags: ["Linear", "Comp Math", "Merge"],
     aliases: ["plus merge", "over", "glow", "defocus", "light energy"],
     sourceIds: ["aces-docs-overview"],
+  },
+];
+
+export const flashcardPacks: FlashcardPack[] = [
+  {
+    id: "pack-aces-basics",
+    title: "ACES Starter Deck",
+    subtitle: "Runner issue",
+    description: "The fastest route through what ACES is, why ACEScg matters, and where display transforms belong.",
+    rarity: "Rare",
+    suit: "Primaries",
+    cardIds: ["fc-acescg-use", "fc-aces2065", "fc-idt", "fc-odt", "fc-viewer-transform"],
+  },
+  {
+    id: "pack-nuke-source",
+    title: "Nuke Source Ops",
+    subtitle: "Read-node discipline",
+    description: "Camera plates, log footage, HDRIs, EXRs, and Raw/data decisions for production ingest.",
+    rarity: "Epic",
+    suit: "Source",
+    cardIds: ["fc-idt", "fc-log-footage", "fc-hdri", "fc-exr", "fc-raw"],
+  },
+  {
+    id: "pack-troubleshooting",
+    title: "Shot Rescue Pack",
+    subtitle: "Mistake hunter",
+    description: "Collect the cards that help diagnose crunchy shots, wrong viewers, and broken math.",
+    rarity: "Legendary",
+    suit: "View",
+    cardIds: ["fc-double-transform", "fc-viewer-transform", "fc-odt", "fc-linear-math", "fc-raw"],
+  },
+  {
+    id: "pack-color-pipeline",
+    title: "Color Pipeline Pack",
+    subtitle: "Lead-comp prep",
+    description: "Advanced ACES terms for AP0/AP1, grading spaces, LMTs, and show-look conversations.",
+    rarity: "Epic",
+    suit: "Curve",
+    cardIds: ["fc-ap0-ap1", "fc-acescct", "fc-lmt", "fc-aces2065", "fc-linear-math"],
   },
 ];
 

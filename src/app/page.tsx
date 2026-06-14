@@ -2,7 +2,7 @@ import Link from "next/link";
 import { AchievementGrid } from "@/components/achievement-grid";
 import { CardFrame } from "@/components/card-frame";
 import { ProgressRing } from "@/components/progress-ring";
-import { glossaryTerms, scenarios, topics, totalStarterXp, videoTutorials } from "@/lib/data";
+import { flashcardPacks, glossaryTerms, onboardingSteps, scenarios, topics, totalStarterXp, videoTutorials } from "@/lib/data";
 
 const rank = "Junior Comp";
 const nextRank = "Compositor";
@@ -20,13 +20,16 @@ export default function DashboardPage() {
               <div>
                 <p className="pixel text-cyan-100/75">Training Terminal Online</p>
                 <h1 className="mt-3 max-w-3xl text-5xl font-black leading-[0.92] sm:text-7xl">
-                  Search ACES like a compositor, not a manual.
+                  Learn ACES like a collectible card game.
                 </h1>
                 <p className="mt-5 max-w-2xl text-lg leading-8 text-white/68">
-                  A growing local vault of glossary terms, flashcards, scenario duels, field notes, source references, and playable tutorial videos for Nuke artists working in ACES.
+                  Start with the ACES 101 quest, collect production flashcard packs, then test yourself with scenario duels built for Nuke compositors.
                 </p>
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
+                <Link className="rounded-xl border border-amber-200/45 bg-amber-300/15 px-5 py-3 font-black shadow-[0_0_28px_rgba(255,200,87,0.12)]" href="/onboarding">
+                  Start ACES 101
+                </Link>
                 <Link className="rounded-2xl border border-cyan-200/45 bg-cyan-300/15 px-5 py-3 font-black shadow-[0_0_28px_rgba(50,230,255,0.12)]" href="/challenges">
                   Daily Duel
                 </Link>
@@ -48,7 +51,12 @@ export default function DashboardPage() {
         </CardFrame>
       </section>
 
-      <section className="grid gap-3 md:grid-cols-3">
+      <section className="grid gap-3 md:grid-cols-4">
+        <CardFrame rarity="Legendary" label="Onboarding">
+          <p className="pixel text-4xl text-amber-100">{onboardingSteps.length}</p>
+          <p className="mt-2 font-black">ACES 101 Steps</p>
+          <p className="mt-2 text-sm leading-6 text-white/58">Input, working space, and display explained as a Nuke-first onboarding quest.</p>
+        </CardFrame>
         <CardFrame rarity="Rare" label="Knowledge Vault">
           <p className="pixel text-4xl text-cyan-100">{glossaryTerms.length}</p>
           <p className="mt-2 font-black">Glossary Cards</p>
@@ -59,10 +67,10 @@ export default function DashboardPage() {
           <p className="mt-2 font-black">Playable Videos</p>
           <p className="mt-2 text-sm leading-6 text-white/58">Embedded ACES, OCIO, and Nuke tutorials plus links to broader YouTube searches.</p>
         </CardFrame>
-        <CardFrame rarity="Uncommon" label="Search Index">
-          <p className="pixel text-4xl text-fuchsia-100">Rich</p>
-          <p className="mt-2 font-black">Question Matching</p>
-          <p className="mt-2 text-sm leading-6 text-white/58">Search catches terms like crunchy, double LUT, AP0, scene_linear, LogC4, Raw, and viewer process.</p>
+        <CardFrame rarity="Uncommon" label="Card Packs">
+          <p className="pixel text-4xl text-fuchsia-100">{flashcardPacks.length}</p>
+          <p className="mt-2 font-black">Collectible Decks</p>
+          <p className="mt-2 text-sm leading-6 text-white/58">Starter, source ops, shot rescue, and color pipeline packs are now selectable.</p>
         </CardFrame>
       </section>
 
