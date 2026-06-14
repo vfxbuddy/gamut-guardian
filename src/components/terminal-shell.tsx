@@ -6,14 +6,14 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/", label: "Dashboard", code: "HOME" },
-  { href: "/onboarding", label: "ACES 101", code: "BOOT" },
-  { href: "/flashcards", label: "Flashcards", code: "LEARN" },
-  { href: "/challenges", label: "Challenges", code: "DUEL" },
-  { href: "/tutorials", label: "Tutorials", code: "VIDS" },
-  { href: "/field-guide", label: "Field Guide", code: "FIELD" },
-  { href: "/glossary", label: "Glossary", code: "LEX" },
-  { href: "/answer-finder", label: "Answer Finder", code: "SEEK" },
+  { href: "/", label: "City Gate", code: "GATE", district: "00" },
+  { href: "/onboarding", label: "ACES 101", code: "BOOT", district: "01" },
+  { href: "/flashcards", label: "Card Market", code: "CARDS", district: "02" },
+  { href: "/challenges", label: "Duel Yard", code: "DUEL", district: "03" },
+  { href: "/tutorials", label: "Signal Theatre", code: "VIDS", district: "04" },
+  { href: "/field-guide", label: "Field Archive", code: "FIELD", district: "05" },
+  { href: "/glossary", label: "Lexicon Alley", code: "LEX", district: "06" },
+  { href: "/answer-finder", label: "Finder Relay", code: "SEEK", district: "07" },
 ];
 
 type TerminalShellProps = {
@@ -24,49 +24,48 @@ export function TerminalShell({ children }: TerminalShellProps) {
   const pathname = usePathname();
 
   return (
-    <div className="terminal-grid min-h-screen overflow-hidden">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
-        <header className="sticky top-0 z-30 -mx-4 border-b border-amber-200/12 bg-[#080506]/90 px-4 pb-3 pt-2 backdrop-blur-xl sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
-            <Link href="/" className="group flex items-center gap-3" aria-label="Gamut Guardian dashboard">
-              <span className="grid size-11 place-items-center rounded-xl border border-amber-300/45 bg-amber-300/10 shadow-[0_0_28px_rgba(255,90,47,0.18)]">
-                <span className="size-6 rounded-sm bg-gradient-to-br from-amber-200 via-red-500 to-emerald-300 [clip-path:polygon(50%_0,100%_50%,50%_100%,0_50%)]" />
-              </span>
-              <span>
-                <span className="block text-lg font-black uppercase leading-none">Gamut Guardian</span>
-                <span className="pixel text-[0.62rem] text-amber-200/78">ACES Training Terminal</span>
-              </span>
-            </Link>
+    <div className="city-shell">
+      <div className="city-grain" aria-hidden="true" />
+      <div className="city-scan" aria-hidden="true" />
+      <div className="city-skyline" aria-hidden="true">
+        {Array.from({ length: 18 }).map((_, index) => (
+          <span key={index} />
+        ))}
+      </div>
 
-            <div className="hidden rounded-full border border-amber-200/30 bg-amber-200/10 px-4 py-2 text-right sm:block">
-              <p className="pixel text-[0.62rem] text-amber-100/80">Rank</p>
-              <p className="text-sm font-black text-amber-100">Junior Comp</p>
-            </div>
+      <div className="city-layout">
+        <aside className="district-nav">
+          <Link href="/" className="city-brand" aria-label="Gamut Guardian city gate">
+            <span className="brand-sigil" />
+            <span>
+              <span className="brand-title">Gamut Guardian</span>
+              <span className="brand-subtitle">Color Science City</span>
+            </span>
+          </Link>
+
+          <div className="operator-card">
+            <p className="pixel">Operator</p>
+            <strong>Junior Comp</strong>
+            <span>ACES clearance active</span>
           </div>
 
-          <nav className="mt-4 flex gap-2 overflow-x-auto pb-1" aria-label="Primary sections">
+          <nav className="district-list" aria-label="Training sectors">
             {navItems.map((item) => {
               const active = pathname === item.href;
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "shrink-0 rounded-2xl border px-3 py-2 text-left transition hover:-translate-y-0.5",
-                    active
-                      ? "border-amber-200/70 bg-amber-300/15 shadow-[0_0_22px_rgba(255,90,47,0.2)]"
-                      : "border-white/10 bg-white/[0.045] hover:border-amber-100/25",
-                  )}
-                >
-                  <span className="pixel block text-[0.58rem] text-amber-100/72">{item.code}</span>
-                  <span className="block whitespace-nowrap text-sm font-bold">{item.label}</span>
+                <Link key={item.href} href={item.href} className={cn("district-link", active && "district-link-active")}>
+                  <span className="district-number">{item.district}</span>
+                  <span>
+                    <span className="pixel district-code">{item.code}</span>
+                    <span className="district-label">{item.label}</span>
+                  </span>
                 </Link>
               );
             })}
           </nav>
-        </header>
+        </aside>
 
-        <main className="flex-1 py-5 sm:py-7">{children}</main>
+        <main className="city-stage">{children}</main>
       </div>
     </div>
   );

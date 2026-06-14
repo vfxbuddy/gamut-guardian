@@ -41,6 +41,592 @@ body {
   font-family: var(--font-sans);
 }
 
+.city-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 76% 8%, rgba(64, 246, 255, 0.14), transparent 26rem),
+    radial-gradient(circle at 12% 22%, rgba(255, 90, 47, 0.18), transparent 24rem),
+    linear-gradient(180deg, rgba(8, 5, 6, 0.3), rgba(8, 5, 6, 0.96) 72%);
+}
+
+.city-grain,
+.city-scan {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.city-grain {
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px),
+    radial-gradient(circle at 82% 24%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px),
+    radial-gradient(circle at 43% 82%, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px);
+  background-size: 7px 9px, 11px 13px, 17px 19px;
+  mix-blend-mode: screen;
+}
+
+.city-scan {
+  opacity: 0.18;
+  background: repeating-linear-gradient(0deg, transparent 0 4px, rgba(255, 244, 223, 0.22) 4px 5px);
+}
+
+.city-skyline {
+  position: fixed;
+  inset: auto -2rem 0;
+  z-index: 0;
+  display: flex;
+  align-items: end;
+  gap: 0.45rem;
+  height: 42vh;
+  opacity: 0.72;
+  pointer-events: none;
+  filter: blur(0.1px);
+}
+
+.city-skyline span {
+  flex: 1;
+  min-width: 2.5rem;
+  height: calc(8rem + (var(--h, 5) * 1.1rem));
+  background:
+    linear-gradient(90deg, rgba(255, 200, 87, 0.22) 0 1px, transparent 1px 11px),
+    linear-gradient(180deg, rgba(64, 246, 255, 0.08), rgba(255, 90, 47, 0.1)),
+    #080609;
+  border: 1px solid rgba(255, 244, 223, 0.055);
+  box-shadow: 0 0 22px rgba(255, 90, 47, 0.08);
+  clip-path: polygon(0 0.9rem, 0.9rem 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.city-skyline span:nth-child(2n) {
+  --h: 10;
+}
+
+.city-skyline span:nth-child(3n) {
+  --h: 3;
+}
+
+.city-skyline span:nth-child(5n) {
+  --h: 13;
+}
+
+.city-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 100vh;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.district-nav {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  border: 1px solid rgba(255, 244, 223, 0.12);
+  border-radius: 1.1rem;
+  padding: 1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 244, 223, 0.08), rgba(0, 0, 0, 0.18)),
+    rgba(9, 6, 8, 0.76);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36), inset 0 0 0 1px rgba(255, 244, 223, 0.04);
+  backdrop-filter: blur(18px);
+}
+
+.city-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-sigil {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid rgba(255, 200, 87, 0.4);
+  background:
+    linear-gradient(135deg, var(--gold), var(--ember) 54%, var(--cyan));
+  clip-path: polygon(50% 0, 100% 32%, 84% 100%, 16% 100%, 0 32%);
+  filter: drop-shadow(0 0 22px rgba(255, 90, 47, 0.28));
+}
+
+.brand-title,
+.brand-subtitle {
+  display: block;
+}
+
+.brand-title {
+  font-size: 1.1rem;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.brand-subtitle {
+  margin-top: 0.25rem;
+  color: rgba(255, 200, 87, 0.74);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.operator-card {
+  border: 1px solid rgba(255, 200, 87, 0.16);
+  border-radius: 0.85rem;
+  padding: 0.85rem;
+  background: rgba(255, 200, 87, 0.07);
+}
+
+.operator-card p,
+.operator-card strong,
+.operator-card span {
+  display: block;
+}
+
+.operator-card p {
+  color: rgba(255, 200, 87, 0.75);
+  font-size: 0.62rem;
+}
+
+.operator-card strong {
+  margin-top: 0.35rem;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.operator-card span {
+  margin-top: 0.45rem;
+  color: rgba(255, 244, 223, 0.55);
+  font-size: 0.86rem;
+}
+
+.district-list {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+}
+
+.district-link {
+  display: grid;
+  grid-template-columns: auto minmax(8rem, 1fr);
+  gap: 0.65rem;
+  align-items: center;
+  min-width: 13rem;
+  border: 1px solid rgba(255, 244, 223, 0.1);
+  border-radius: 0.9rem;
+  padding: 0.65rem;
+  background:
+    linear-gradient(90deg, rgba(255, 244, 223, 0.045) 0 2px, transparent 2px 10px),
+    rgba(255, 244, 223, 0.035);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.district-link:hover,
+.district-link-active {
+  transform: translateY(-2px);
+  border-color: rgba(64, 246, 255, 0.42);
+  background: rgba(64, 246, 255, 0.08);
+  box-shadow: 0 0 28px rgba(64, 246, 255, 0.1);
+}
+
+.district-number {
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  color: #050407;
+  font-weight: 950;
+  background: linear-gradient(135deg, var(--cyan), var(--gold));
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.district-code,
+.district-label {
+  display: block;
+}
+
+.district-code {
+  color: rgba(255, 200, 87, 0.7);
+  font-size: 0.58rem;
+}
+
+.district-label {
+  margin-top: 0.18rem;
+  font-weight: 850;
+}
+
+.city-stage {
+  min-width: 0;
+}
+
+.city-home {
+  display: grid;
+  gap: 1rem;
+}
+
+.cinematic-hero {
+  position: relative;
+  min-height: clamp(34rem, 72vh, 48rem);
+  overflow: hidden;
+  border: 1px solid rgba(255, 244, 223, 0.12);
+  border-radius: 1.4rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  background:
+    linear-gradient(90deg, rgba(255, 244, 223, 0.06) 0 1px, transparent 1px 18px),
+    linear-gradient(0deg, rgba(255, 244, 223, 0.045) 0 1px, transparent 1px 18px),
+    linear-gradient(180deg, rgba(64, 246, 255, 0.08), rgba(255, 90, 47, 0.08) 52%, rgba(0, 0, 0, 0.5)),
+    #080506;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+}
+
+.cinematic-hero::before,
+.cinematic-hero::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.cinematic-hero::before {
+  inset: 0;
+  background:
+    radial-gradient(circle at 60% 35%, rgba(255, 200, 87, 0.18), transparent 14rem),
+    radial-gradient(circle at 82% 26%, rgba(64, 246, 255, 0.24), transparent 18rem);
+}
+
+.cinematic-hero::after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.72));
+}
+
+.hero-depth {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  display: flex;
+  align-items: end;
+  gap: 0.65rem;
+  height: 54%;
+  padding-inline: 1.2rem;
+}
+
+.hero-depth span {
+  flex: 1;
+  height: 45%;
+  background:
+    linear-gradient(90deg, rgba(64, 246, 255, 0.16) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(255, 200, 87, 0.08), rgba(255, 90, 47, 0.1)),
+    #09070a;
+  border: 1px solid rgba(255, 244, 223, 0.08);
+  box-shadow: 0 0 32px rgba(64, 246, 255, 0.08);
+}
+
+.hero-depth span:nth-child(2n) {
+  height: 68%;
+}
+
+.hero-depth span:nth-child(3n) {
+  height: 35%;
+}
+
+.hero-depth span:nth-child(5n) {
+  height: 82%;
+}
+
+.hero-copy,
+.hero-monitor {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-copy {
+  max-width: 48rem;
+}
+
+.hero-kicker {
+  color: rgba(64, 246, 255, 0.82);
+  font-size: 0.7rem;
+}
+
+.hero-copy h1 {
+  margin: 1rem 0 0;
+  max-width: 58rem;
+  font-size: clamp(2.6rem, 10vw, 8.2rem);
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  line-height: 0.78;
+  text-transform: uppercase;
+  text-shadow: 0 0 24px rgba(255, 90, 47, 0.16);
+}
+
+.hero-copy h1 span {
+  display: block;
+}
+
+.hero-copy p:not(.pixel) {
+  margin-top: 1.4rem;
+  max-width: 43rem;
+  color: rgba(255, 244, 223, 0.68);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.hero-actions a {
+  border: 1px solid rgba(255, 244, 223, 0.16);
+  border-radius: 0.8rem;
+  padding: 0.95rem 1.15rem;
+  background: rgba(255, 244, 223, 0.07);
+  font-weight: 950;
+}
+
+.hero-actions a:first-child {
+  border-color: rgba(64, 246, 255, 0.38);
+  background: rgba(64, 246, 255, 0.13);
+  box-shadow: 0 0 34px rgba(64, 246, 255, 0.12);
+}
+
+.hero-monitor {
+  position: absolute;
+  right: clamp(1rem, 4vw, 2rem);
+  bottom: clamp(1rem, 4vw, 2rem);
+  width: min(24rem, calc(100% - 2rem));
+  border: 1px solid rgba(64, 246, 255, 0.22);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.hero-monitor p {
+  color: rgba(64, 246, 255, 0.76);
+  font-size: 0.62rem;
+}
+
+.hero-monitor h2 {
+  margin: 0.45rem 0 0;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.hero-monitor span {
+  display: block;
+  margin-top: 0.7rem;
+  color: rgba(255, 244, 223, 0.62);
+  line-height: 1.55;
+}
+
+.sector-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.sector-card {
+  position: relative;
+  min-height: 16rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 244, 223, 0.12);
+  border-radius: 1rem;
+  padding: 1rem;
+  background:
+    linear-gradient(90deg, rgba(255, 244, 223, 0.06) 0 2px, transparent 2px 12px),
+    linear-gradient(135deg, rgba(64, 246, 255, 0.1), rgba(255, 90, 47, 0.08)),
+    rgba(0, 0, 0, 0.34);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.sector-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(64, 246, 255, 0.42);
+}
+
+.sector-card::before {
+  content: "";
+  position: absolute;
+  right: -1rem;
+  bottom: -1rem;
+  width: 11rem;
+  height: 10rem;
+  background:
+    linear-gradient(90deg, rgba(255, 244, 223, 0.08) 0 2px, transparent 2px 11px),
+    linear-gradient(135deg, rgba(255, 200, 87, 0.16), rgba(64, 246, 255, 0.12));
+  clip-path: polygon(0 24%, 22% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.sector-code {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 200, 87, 0.76);
+  font-size: 0.62rem;
+}
+
+.sector-card h2,
+.sector-card p,
+.sector-card strong {
+  position: relative;
+  z-index: 1;
+}
+
+.sector-card h2 {
+  margin: 3.5rem 0 0;
+  max-width: 18rem;
+  font-size: 2rem;
+  font-weight: 950;
+  line-height: 0.95;
+}
+
+.sector-card p {
+  max-width: 22rem;
+  margin-top: 0.8rem;
+  color: rgba(255, 244, 223, 0.6);
+  line-height: 1.6;
+}
+
+.sector-card strong {
+  display: block;
+  margin-top: 1rem;
+  color: rgba(64, 246, 255, 0.78);
+}
+
+.city-status-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.status-monitor {
+  border: 1px solid rgba(255, 244, 223, 0.12);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.status-monitor > .pixel {
+  color: rgba(255, 200, 87, 0.76);
+  font-size: 0.62rem;
+}
+
+.signal-stats {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.signal-stats span {
+  display: grid;
+  border: 1px solid rgba(255, 244, 223, 0.1);
+  border-radius: 0.8rem;
+  padding: 0.9rem;
+  color: rgba(255, 244, 223, 0.58);
+  background: rgba(255, 244, 223, 0.045);
+}
+
+.signal-stats strong {
+  color: var(--foreground);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.shelf-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.shelf-heading h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.shelf-heading span {
+  color: rgba(255, 200, 87, 0.62);
+  font-size: 0.62rem;
+}
+
+@media (min-width: 900px) {
+  .city-layout {
+    grid-template-columns: 18rem minmax(0, 1fr);
+    padding: 1.2rem;
+  }
+
+  .district-nav {
+    position: sticky;
+    top: 1.2rem;
+    height: calc(100vh - 2.4rem);
+  }
+
+  .district-list {
+    display: grid;
+    overflow: visible;
+  }
+
+  .district-link {
+    min-width: 0;
+  }
+
+  .city-stage {
+    padding-bottom: 2rem;
+  }
+
+  .sector-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .city-status-grid {
+    grid-template-columns: 20rem minmax(0, 1fr);
+  }
+
+  .signal-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .city-layout {
+    padding: 0.75rem;
+  }
+
+  .district-nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    margin: -0.75rem -0.75rem 0;
+    border-radius: 0 0 1rem 1rem;
+  }
+
+  .operator-card {
+    display: none;
+  }
+
+  .hero-monitor {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 2rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.35rem, 12vw, 2.85rem);
+    line-height: 0.86;
+  }
+}
+
 button,
 input {
   font: inherit;
