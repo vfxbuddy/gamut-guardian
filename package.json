@@ -5,6 +5,6 @@
   "description": "A tactical digital card game for learning the ACES color pipeline.",
   "scripts": {
     "build": "node build.js",
-    "serve": "node server.js"
+    "serve": "node dev-server.js"
   }
 }
