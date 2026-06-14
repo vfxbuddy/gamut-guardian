@@ -2,15 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Flashcard, GlossaryTerm, GuideArticle, KnowledgeSource, Scenario, VideoTutorial } from "@/lib/data";
-
-const stopWords = new Set(["a", "an", "and", "are", "do", "does", "for", "how", "i", "is", "it", "my", "of", "the", "to", "what", "when", "where", "why"]);
-
-function searchTokens(query: string): string[] {
-  return query
-    .toLowerCase()
-    .split(/[^a-z0-9_.-]+/)
-    .filter((token) => token.length > 1 && !stopWords.has(token));
-}
+import { scoreSearch, searchTokens } from "@/lib/search";
 
 type AnswerFinderProps = {
   flashcards: Flashcard[];
@@ -73,8 +65,7 @@ export function AnswerFinder({ flashcards, scenarios, guides, terms, videos, sou
     if (!tokens.length) return items;
     return items
       .map((item) => {
-        const haystack = `${item.kind} ${item.haystack}`.toLowerCase();
-        const score = tokens.reduce((total, token) => total + (haystack.includes(token) ? 1 : 0), 0);
+        const score = scoreSearch(`${item.kind} ${item.haystack}`, query);
         return { ...item, score };
       })
       .filter((item) => item.score > 0)

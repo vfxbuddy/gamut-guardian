@@ -2,16 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { GlossaryTerm } from "@/lib/data";
+import { scoreSearch, searchTokens } from "@/lib/search";
 import { CardFrame } from "./card-frame";
-
-const stopWords = new Set(["a", "an", "and", "are", "do", "does", "for", "how", "i", "is", "it", "my", "of", "the", "to", "what", "when", "where", "why"]);
-
-function searchTokens(query: string): string[] {
-  return query
-    .toLowerCase()
-    .split(/[^a-z0-9_.-]+/)
-    .filter((token) => token.length > 1 && !stopWords.has(token));
-}
 
 type GlossarySearchProps = {
   terms: GlossaryTerm[];
@@ -35,7 +27,7 @@ export function GlossarySearch({ terms }: GlossarySearchProps) {
         ]
           .join(" ")
           .toLowerCase();
-        const score = tokens.reduce((total, token) => total + (haystack.includes(token) ? 1 : 0), 0);
+        const score = scoreSearch(haystack, query);
         return { term, score };
       })
       .filter((item) => item.score > 0)
