@@ -2,7 +2,7 @@ import Link from "next/link";
 import { AchievementGrid } from "@/components/achievement-grid";
 import { CardFrame } from "@/components/card-frame";
 import { ProgressRing } from "@/components/progress-ring";
-import { scenarios, topics, totalStarterXp } from "@/lib/data";
+import { glossaryTerms, scenarios, topics, totalStarterXp, videoTutorials } from "@/lib/data";
 
 const rank = "Junior Comp";
 const nextRank = "Compositor";
@@ -20,10 +20,10 @@ export default function DashboardPage() {
               <div>
                 <p className="pixel text-cyan-100/75">Training Terminal Online</p>
                 <h1 className="mt-3 max-w-3xl text-5xl font-black leading-[0.92] sm:text-7xl">
-                  Master ACES like a compositor, not a manual.
+                  Search ACES like a compositor, not a manual.
                 </h1>
                 <p className="mt-5 max-w-2xl text-lg leading-8 text-white/68">
-                  Flashcards, field notes, and pipeline duels tuned for Nuke artists working with plates, renders, EXRs, HDRIs, IDTs, and viewer transforms.
+                  A growing local vault of glossary terms, flashcards, scenario duels, field notes, source references, and playable tutorial videos for Nuke artists working in ACES.
                 </p>
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
@@ -45,6 +45,24 @@ export default function DashboardPage() {
           <div className="my-5 h-px bg-white/10" />
           <p className="text-2xl font-black">{rank}</p>
           <p className="mt-2 text-sm leading-6 text-white/62">Next clearance: {nextRank}</p>
+        </CardFrame>
+      </section>
+
+      <section className="grid gap-3 md:grid-cols-3">
+        <CardFrame rarity="Rare" label="Knowledge Vault">
+          <p className="pixel text-4xl text-cyan-100">{glossaryTerms.length}</p>
+          <p className="mt-2 font-black">Glossary Cards</p>
+          <p className="mt-2 text-sm leading-6 text-white/58">Terms now include aliases, common artist questions, production usage notes, and mistakes.</p>
+        </CardFrame>
+        <CardFrame rarity="Epic" label="Tutorial Theatre">
+          <p className="pixel text-4xl text-amber-100">{videoTutorials.length}</p>
+          <p className="mt-2 font-black">Playable Videos</p>
+          <p className="mt-2 text-sm leading-6 text-white/58">Embedded ACES, OCIO, and Nuke tutorials plus links to broader YouTube searches.</p>
+        </CardFrame>
+        <CardFrame rarity="Uncommon" label="Search Index">
+          <p className="pixel text-4xl text-fuchsia-100">Rich</p>
+          <p className="mt-2 font-black">Question Matching</p>
+          <p className="mt-2 text-sm leading-6 text-white/58">Search catches terms like crunchy, double LUT, AP0, scene_linear, LogC4, Raw, and viewer process.</p>
         </CardFrame>
       </section>
 
