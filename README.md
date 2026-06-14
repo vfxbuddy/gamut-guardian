@@ -11,3 +11,11 @@ npm.cmd run serve
 ```
 
 Then visit `http://localhost:4173`.
+
+For Vercel preview deployments:
+
+```powershell
+npm.cmd run build
+```
+
+Build output is written to `dist/`.
