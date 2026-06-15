@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AchievementGrid } from "@/components/achievement-grid";
 import { ProgressRing } from "@/components/progress-ring";
 import { flashcardPacks, glossaryTerms, onboardingSteps, scenarios, totalStarterXp, videoTutorials } from "@/lib/data";
@@ -33,6 +34,27 @@ const sectors = [
     title: "Finder Relay",
     meta: `${glossaryTerms.length}+ indexed terms`,
     copy: "Ask production-style ACES and Nuke questions without digging through a manual.",
+  },
+];
+
+const plateSignals = [
+  {
+    src: "/plates/source-log.jpg",
+    code: "01 / Source",
+    title: "Before the IDT",
+    copy: "A log or un-interpreted plate can look flat and low-contrast. In Nuke, the Read node/input transform tells ACES what the source actually is.",
+  },
+  {
+    src: "/plates/display-transform.jpg",
+    code: "02 / View",
+    title: "Display transform",
+    copy: "The viewer/output transform maps scene-referred ACES values to a monitor image. This is what artists review, not the raw comp math.",
+  },
+  {
+    src: "/plates/wrong-view.jpg",
+    code: "03 / Failure mode",
+    title: "Wrong or double view",
+    copy: "If the view transform is missing, baked, or applied twice, the shot can collapse into a dim, crushed, or misleading preview.",
   },
 ];
 
@@ -71,6 +93,30 @@ export default function DashboardPage() {
           <p className="pixel">Current Signal</p>
           <h2>{dailyScenario.title}</h2>
           <span>{dailyScenario.prompt}</span>
+        </div>
+      </section>
+
+      <section className="signal-lab" aria-label="ACES signal comparison">
+        <div className="signal-lab-header">
+          <p className="pixel">ACES Signal Lab</p>
+          <h2>One plate, three pipeline reads.</h2>
+          <span>
+            These frames illustrate why ACES separates source interpretation, scene-linear comp, and display viewing.
+          </span>
+        </div>
+        <div className="plate-grid">
+          {plateSignals.map((signal) => (
+            <article key={signal.src} className="plate-card">
+              <div className="plate-image-wrap">
+                <Image src={signal.src} alt={`${signal.title} example frame`} width={1280} height={720} className="plate-image" priority={signal.src === "/plates/source-log.jpg"} />
+              </div>
+              <div className="plate-copy">
+                <p className="pixel">{signal.code}</p>
+                <h3>{signal.title}</h3>
+                <span>{signal.copy}</span>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
